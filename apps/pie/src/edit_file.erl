@@ -43,7 +43,10 @@ find_file1(State, Filename, Name, N) ->
 		    edit_buf:set_text(Buf, Cord),
 		    edit_buf:move_mark(Buf, point, 1),
 		    State1;
+                {error,eisdir} ->
+		    edit_util:status_msg(State1, "This is directory.");
 		{error, Reason} ->
+                    error_logger:info_msg("File Open Error: ~p",[Reason]),
 		    edit_util:status_msg(State1, "(New file)")
 	    end;
 	Pid ->
