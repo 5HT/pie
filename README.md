@@ -34,7 +34,7 @@ Selection
     M-S-LEFT    -- Word left
     M-S-RIGHT   -- Word right
 
-Selection CUA mode limitations due to Linux Terminal limitation 
+Selection CUA mode caveats due to Linux Terminal limitations
     
     C-S-UP/DN   -- unbinded
     S-PGUP/PGDN -- unbinded
@@ -52,7 +52,7 @@ File Operations
 ---------------
 
     C-x C-c -- Quit
-    C-x C-f -- Find File
+    C-x C-f -- Find File, supports autocompletion in popup-windows
     C-x C-s -- Save File
 
 Window Management
