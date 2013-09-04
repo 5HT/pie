@@ -15,6 +15,8 @@ loop(Acc,Receiver) ->
     Ch = case Read of
         $\n -> $\r;
         145 -> panic(); % C-M-q is reserved for panic 
+        208 -> [208,?EDIT_TERMINAL:read()];
+        209 -> [209,?EDIT_TERMINAL:read()];
         219 -> case ?EDIT_TERMINAL:read() of
                     53 -> [219,53,?EDIT_TERMINAL:read()]; % Fn-UP
                     54 -> [219,54,?EDIT_TERMINAL:read()]; % Fn-DOWN

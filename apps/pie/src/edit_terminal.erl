@@ -12,9 +12,11 @@
 -compile(export_all).
 
 setup() ->
+
     slang:tt_get_terminfo(),
     slang:kp_init(),
     slang:init_tty(0, 1, 1),
+%    slang:init_tty(-1, 1, 1),
     slang:set_abort_signal(null),
     slang:smg_init_smg (),
     slang:smg_normal_video(),
@@ -23,11 +25,9 @@ setup() ->
     ok.
 
 selection(XX,YY,X,Y) ->
-    edit_terminal:font_reverse(),
     slang:tt_set_color(2,"mode-line2","white","blue"),
     slang:smg_set_color_in_region(2,XX,YY,X,Y),
-    edit_terminal:font_normal(),
-    refresh().
+    ok.
 
 teardown() ->
     slang:smg_reset_smg(),

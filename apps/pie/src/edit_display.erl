@@ -57,8 +57,15 @@ try_update_loop([$\t|T], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
     Size = 8 - (Col rem 8),
     Tab = lists:duplicate(Size, $ ),
     try_update_loop(T,NRows,Scan+1,Col+Size,Row,Point,PointXY,Tab++Acc);
+
+try_update_loop([208,X|T], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
+    try_update_loop(T,NRows,Scan+2,Col+1,Row,Point,PointXY,[X,208]++Acc);
+try_update_loop([209,X|T], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
+    try_update_loop(T,NRows,Scan+2,Col+1,Row,Point,PointXY,[X,209]++Acc);
+
 try_update_loop([H|T], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
     try_update_loop(T,NRows,Scan+1,Col+1,Row,Point,PointXY,[H|Acc]);
+
 try_update_loop([], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
     draw_line(lists:reverse(Acc)),
     RemainingRows = NRows - Row,
@@ -72,7 +79,8 @@ try_update_loop([], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
 draw_line(L) ->
     Wth = ?EDIT_TERMINAL:width(),
     Str = trunc_line(L, Wth),
-    ?EDIT_TERMINAL:put_string(L),
+    error_logger:info_msg("Line: ~s",[Str]),
+    ?EDIT_TERMINAL:put_string(Str),
     ?EDIT_TERMINAL:erase_to_eol().
 
 trunc_line([H],   1) -> [H];

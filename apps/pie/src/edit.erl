@@ -134,16 +134,19 @@ load_dot_pie(State) ->
 	    end
     end.
 	
-%% -------------
+%% ------------
 %% The Main Loop
 
 loop(S) ->
+    slang:block_signals(),
     {Curr,LastCursor} = edit_display:draw_window(S#state.curwin),
+    slang:unblock_signals(),
     State = S#state{curwin=Curr,last_cursor=LastCursor},
     NewState = dispatch(State),
     ?MODULE:loop(redraw(NewState)).
 
 redraw(State) ->
+    slang:block_signals(),
     Wins = [ begin {Win,_} = edit_display:draw_window(W), Win end || W <- State#state.windows],
 %    lists:foreach(fun(W) ->  edit_display:draw_window(W) end, State#state.windows), 
     {Cur,{X,Y}} = edit_display:draw_window(State#state.curwin),
@@ -165,7 +168,9 @@ redraw(State) ->
                      end;
          _ -> ok end,
     ?EDIT_TERMINAL:refresh(),
+    slang:unblock_signals(),
     State#state{curwin=Cur,windows=Wins}.
+
 
 %% Dispatch a command, based on the next message we receive.
 dispatch(State) ->

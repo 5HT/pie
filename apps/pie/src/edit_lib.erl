@@ -42,6 +42,12 @@ delete_word_forward(S) ->
     P2 = find_char_forward(Buf, not_P(alphanumeric_P()), P1, P1),
     edit_buf:delete(Buf, Point, P2).
 
+
+insert_char(S, [Ch,Ch2]) ->
+    Buf = buffer(S),
+    edit_buf:insert(Buf, [Ch], edit_buf:mark_pos(Buf, point)),
+    edit_buf:insert(Buf, [Ch2], edit_buf:mark_pos(Buf, point));
+
 insert_char(S, Ch) ->
     Buf = buffer(S),
     edit_buf:insert(Buf, [Ch], edit_buf:mark_pos(Buf, point)).

@@ -50,7 +50,7 @@ eval_tokens(Buf, Tokens, Bindings) ->
 		    {error, Error}
 	    end;
 	{error, {_, erl_parse, Err}} ->
-            error_logger:errro_msg("Eval Tokens Parse Error: ~p",[Err]),
+            error_logger:error_msg("Eval Tokens Parse Error: ~p",[Err]),
 	    {error, fmt("~s", [Err])}
     end.
 
