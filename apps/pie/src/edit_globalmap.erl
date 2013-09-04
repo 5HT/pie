@@ -105,7 +105,7 @@ bindings() -> [
     %% Help
     {"C-j",     {keymap, help_map}},
     %% self insert commands (\r becomes \n)
-    {$\r,       {edit_lib, self_insert_command, [$\n]}},
+    {$\r,       {edit_lib, self_insert_command, [$\n]}} 
 %    {[209,132],       {edit_lib, self_insert_command, [[209,132]]}},
 %    {[209,150],       {edit_lib, self_insert_command, [[209,150]]}}
     | [{Ch,     {edit_lib, self_insert_command, [Ch]}} || Ch <- self_inserts()] ].
