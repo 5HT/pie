@@ -5,14 +5,15 @@ WS       = [\s\r\n]
 
 Rules.
 
-\(     : {token, {'(', YYline}}.
-\)     : {token, {')', YYline}}.
+\(     : {token, {'(', TokenLine}}.
+\)     : {token, {')', TokenLine}}.
 
-lambda : {token, {special, YYline}}.
-define : {token, {special, YYline}}.
-let    : {token, {special, YYline}}.
+lambda : {token, {special, TokenLine}}.
+define : {token, {special, TokenLine}}.
+let    : {token, {special, TokenLine}}.
 
-({AtomChar}{AtomChar}*) : {token, {atom, YYline, YYtext}}.
+({AtomChar}{AtomChar}*) : {token, {atom, TokenLine, TokenChars}}.
 %% Ignore
 {WS} : skip_token.
 
+Erlang code.

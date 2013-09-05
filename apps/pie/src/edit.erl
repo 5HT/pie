@@ -56,19 +56,27 @@ get_key(Proc) -> pie:send(loop,{want_key, self()}), receive {key_input, Ch} -> C
 %% Turn this process into a lean, mean, editing machine
 init() ->
     register(?MODULE, self()),
+    error_logger:info_msg("Edit Started."),
     init_io_traps(),
+    error_logger:info_msg("IO Traps."),
     process_flag(trap_exit, true),
+    error_logger:info_msg("IO Traps."),
     %% Initialize editor
     edit_keymap:start_link_server(),
+    error_logger:info_msg("Keymap Started."),
     edit_globalmap:init(),
+    error_logger:info_msg("Globalmap Init."),
     ?EDIT_TERMINAL:setup(),
+    error_logger:info_msg("Terminal Setup."),
     edit_input:start_link(self()),
+    error_logger:info_msg("Input Started."),
     init_vars(),
     init_buffers(),
     init_mods(),
     State = init_windows(#state{}),
     State1 = load_dot_pie(State),
     State2 = redraw(State1),
+    error_logger:info_msg("First Draw."),
     %%profile(State2),
     pie:reg(loop),
     loop(State2).

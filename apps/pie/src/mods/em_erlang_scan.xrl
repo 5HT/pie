@@ -9,40 +9,40 @@ WS      = [\000-\s]
 
 Rules.
 {D}+\.{D}+((E|e)(\+|\-)?{D}+)? :
-                        {token,{float,YYline,list_to_float(YYtext)}}.
-{D}+#{H}+       :       base(YYline, YYtext).
-{D}+            :       {token,{integer,YYline,list_to_integer(YYtext)}}.
-[a-z]{A}*       :       Atom = list_to_atom(YYtext),
+                        {token,{float,TokenLine,list_to_float(TokenChars)}}.
+{D}+#{H}+       :       base(TokenLine, TokenChars).
+{D}+            :       {token,{integer,TokenLine,list_to_integer(TokenChars)}}.
+[a-z]{A}*       :       Atom = list_to_atom(TokenChars),
                         {token,case reserved_word(Atom) of
-                                   true -> {Atom,YYline};
-                                   false -> {atom,YYline,Atom}
+                                   true -> {Atom,TokenLine};
+                                   false -> {atom,TokenLine,Atom}
                                end}.
-[_A-Z]{A}*      :       {token,{var,YYline,list_to_atom(YYtext)}}.
+[_A-Z]{A}*      :       {token,{var,TokenLine,list_to_atom(TokenChars)}}.
 "(\\\^.|\\.|[^"])*" :
                         %% Strip quotes.
-                        S = lists:sublist(YYtext, 2, length(YYtext) - 2),
-                        {token,{string,YYline,string_gen(S)}}.
+                        S = lists:sublist(TokenChars, 2, length(TokenChars) - 2),
+                        {token,{string,TokenLine,string_gen(S)}}.
 '(\\\^.|\\.|[^'])*' :
                         %% Strip quotes.
-                        S = lists:sublist(YYtext, 2, length(YYtext) - 2),
-                        {token,{atom,YYline,list_to_atom(string_gen(S))}}.
+                        S = lists:sublist(TokenChars, 2, length(TokenChars) - 2),
+                        {token,{atom,TokenLine,list_to_atom(string_gen(S))}}.
 \$(\\{O}{O}{O}|\\\^.|\\.|.) :
-                        {token,{integer,YYline,cc_convert(YYtext)}}.
-->              :       {token,{'->',YYline}}.
-:-              :       {token,{':-',YYline}}.
-=/=             :       {token,{'=/=',YYline}}.
-==              :       {token,{'==',YYline}}.
-=:=             :       {token,{'=:=',YYline}}.
-/=              :       {token,{'/=',YYline}}.
->=              :       {token,{'>=',YYline}}.
-=<              :       {token,{'=<',YYline}}.
-<=              :       {token,{'<=',YYline}}.
-\+\+            :       {token,{'++',YYline}}.
---              :       {token,{'--',YYline}}.
+                        {token,{integer,TokenLine,cc_convert(TokenChars)}}.
+->              :       {token,{'->',TokenLine}}.
+:-              :       {token,{':-',TokenLine}}.
+=/=             :       {token,{'=/=',TokenLine}}.
+==              :       {token,{'==',TokenLine}}.
+=:=             :       {token,{'=:=',TokenLine}}.
+/=              :       {token,{'/=',TokenLine}}.
+>=              :       {token,{'>=',TokenLine}}.
+=<              :       {token,{'=<',TokenLine}}.
+<=              :       {token,{'<=',TokenLine}}.
+\+\+            :       {token,{'++',TokenLine}}.
+--              :       {token,{'--',TokenLine}}.
 [!?/;:,.*+#()[\]|<>={}-] :
-                        {token,{list_to_atom(YYtext),YYline}}.
-\.{WS}          :       {end_token,{dot,YYline}}.
-\.%.*           :       {end_token,{dot,YYline}}. %Must special case this
+                        {token,{list_to_atom(TokenChars),TokenLine}}.
+\.{WS}          :       {end_token,{dot,TokenLine}}.
+\.%.*           :       {end_token,{dot,TokenLine}}. %Must special case this
 {WS}+           :       .                       %No token returned, eqivalent
 \%.*            :       skip_token.             % to 'skip_token'
 

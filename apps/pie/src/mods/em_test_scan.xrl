@@ -4,9 +4,10 @@ Ch = [a-z]
 
 Rules.
 
-\+        : {token, {'+', YYline}}.
-\+\+      : {token, {'++', YYline}}.
--         : {token, {'-', YYline}}.
+\+        : {token, {'+', TokenLine}}.
+\+\+      : {token, {'++', TokenLine}}.
+-         : {token, {'-', TokenLine}}.
 \s        : skip_token.
-({Ch}{Ch}*) : {token, {atom, YYline, YYtext}}.
+({Ch}{Ch}*) : {token, {atom, TokenLine, TokenChars}}.
 
+Erlang code.

@@ -12,11 +12,10 @@
 -compile(export_all).
 
 setup() ->
-
     slang:tt_get_terminfo(),
     slang:kp_init(),
-    slang:init_tty(0, 1, 1),
-%    slang:init_tty(-1, 1, 1),
+%    slang:init_tty(-1, 0, 1),
+    slang:init_tty(7, 1, 1),
     slang:set_abort_signal(null),
     slang:smg_init_smg (),
     slang:smg_normal_video(),
