@@ -117,18 +117,6 @@ abort(State) ->
 %% M-x
 
 -command({execute_extended_command, [{mod_func, "M-x"}], "Like M-x in emacs."}).
--command({execute_erlang_command, [{mod_func, "M-r"}], "Direct Erlang Run"}).
-
-execute_erlang_command(State, MF) ->
-    case string:tokens(MF, ":") of
-	[ModStr, FunStr] ->
-	    Mod = list_to_atom(ModStr),
-	    Fun = list_to_atom(FunStr),
-	    edit:invoke_erlang_async(Mod, Fun, [], self()),
-	    State;
-	_ ->
-	    edit_util:status_msg(State, "Bad string; must be \"Mod:Fun\"")
-    end.
 
 execute_extended_command(State, MF) ->
     case string:tokens(MF, ":") of
@@ -136,7 +124,7 @@ execute_extended_command(State, MF) ->
 	    Mod = list_to_atom(ModStr),
 	    Fun = list_to_atom(FunStr),
             error_logger:error_msg("Command: ~p",[{Mod,Fun}]),
-	    edit:invoke_extended_async(Mod, Fun, [], self()),
+	    pie:invoke_extended_async(Mod, Fun, [], self()),
 	    State;
 	_ ->
 	    edit_util:status_msg(State, "Bad string; must be \"Mod:Fun\"")

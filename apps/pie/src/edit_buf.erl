@@ -31,7 +31,7 @@ new(Name) ->
 	    Err
     end.
 
-start_link(Name) when atom(Name) ->
+start_link(Name) ->
     case whereis(Name) of
 	undefined ->
 	    Pid = proc_lib:spawn_link(?MODULE, init, [Name]),

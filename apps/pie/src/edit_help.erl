@@ -78,7 +78,7 @@ lookup_key(State) ->
     lookup_key(State, Keymaps).
 
 lookup_key(State, Keymaps) ->
-    Ch = edit:get_key(),
+    Ch = pie:get_key(),
 %    iox:format("Snarfed key: ~p ~p~n", [Ch, Keymaps]),
     lookup_key(State, Keymaps, Ch).
 

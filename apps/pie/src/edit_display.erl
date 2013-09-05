@@ -4,7 +4,7 @@
 -compile(export_all).
 
 draw_window(Window) when Window#window.minibuffer == true, Window#window.status_text /= undefined ->
-    ?EDIT_TERMINAL:move_to(0, Window#window.y),
+    ?TERM:move_to(0, Window#window.y),
     draw_line(Window#window.status_text),
     {Window#window{status_text=undefined},{0,Window#window.y}};
 draw_window(Window) -> try_update(Window).
@@ -15,9 +15,9 @@ try_update(Window) ->
     DStart = edit_buf:mark_pos(Buf, Window#window.start_mark),
     Scan = edit_lib:beginning_of_line_pos(Buf, DStart),
     Point = edit_buf:mark_pos(Buf, point),
-    Chars = (?EDIT_TERMINAL:width() * ?EDIT_TERMINAL:height()) * 4, %% FIXME
+    Chars = (?TERM:width() * ?TERM:height()) * 4, %% FIXME
     Text = edit_buf:get_region(Buf, Scan, min(PointMax, Scan + Chars)),
-    ?EDIT_TERMINAL:move_to(0, Window#window.y),
+    ?TERM:move_to(0, Window#window.y),
     Rows = edit_window:text_lines(Window),
     Prefix = Window#window.prefix,
     PLen = length(Prefix),
@@ -29,7 +29,7 @@ try_update(Window) ->
 	    TrimX = edit_lib:min(X, Window#window.width - 1),
             XX = TrimX,
             YY = Y + Window#window.y,
-	    ?EDIT_TERMINAL:move_to(TrimX, Y + Window#window.y),
+	    ?TERM:move_to(TrimX, Y + Window#window.y),
 %            error_logger:info_msg("Cursor: ~p",[{XX,YY}]),
 	    {Window,{XX,YY}};
 	undefined ->
@@ -46,7 +46,7 @@ try_update_loop(Text, NRows, Scan, Col, Row, Point, PointXY, Acc) when Scan == P
     try_update_loop(Text,NRows,Scan,Col,Row,Point,{Col, Row},Acc);
 try_update_loop([$\n|T], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
     draw_line(lists:reverse(Acc)),
-    ?EDIT_TERMINAL:newline(),
+    ?TERM:newline(),
     NextRow = Row+1,
     if NextRow == NRows ->
 	    PointXY;
@@ -71,17 +71,17 @@ try_update_loop([], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
     RemainingRows = NRows - Row,
     %% draw empty lines until the end
     dotimes(fun() -> draw_line([]),
-		     ?EDIT_TERMINAL:newline()
+		     ?TERM:newline()
 	    end,
 	    RemainingRows),
     PointXY.
 
 draw_line(L) ->
-    Wth = ?EDIT_TERMINAL:width(),
+    Wth = ?TERM:width(),
     Str = trunc_line(L, Wth),
 %    error_logger:info_msg("Line: ~s",[Str]),
-    ?EDIT_TERMINAL:put_string(Str),
-    ?EDIT_TERMINAL:erase_to_eol().
+    ?TERM:put_string(Str),
+    ?TERM:erase_to_eol().
 
 trunc_line([H],   1) -> [H];
 trunc_line(_,     1) -> [$$];
@@ -95,12 +95,12 @@ draw_modeline(Window) ->
     Text = lists:flatten(
          io_lib:format("-U:-mx ~s (~s) ~s",
            [atom_to_list(Buffer), (edit_buf:get_mode(Buffer))#mode.name, Where])),
-    ?EDIT_TERMINAL:font_reverse(),
+    ?TERM:font_reverse(),
     slang:tt_set_color(1,"mode-line","white","blue"),
     slang:smg_set_color(1),
-    ?EDIT_TERMINAL:move_to(0, Window#window.y + edit_window:physical_lines(Window) - 1),
+    ?TERM:move_to(0, Window#window.y + edit_window:physical_lines(Window) - 1),
     draw_line(Text),
-    ?EDIT_TERMINAL:font_normal().
+    ?TERM:font_normal().
 
 modeline_where(Window, Buffer) ->
     case edit_buf:get_size(Buffer) of

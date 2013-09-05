@@ -244,7 +244,7 @@ spawn_with_init(Pid, Ref, Buffers, What) ->
     Pid ! {ready, Ref},
     spawn_with_apply(What),
     %% we miss this redraw if the command crashes. oops.
-    edit:invoke_async(?MODULE, redraw, [], self()).
+    pie:invoke_async(?MODULE, redraw, [], self()).
 
 spawn_with_apply({M, F, A}) -> apply(M, F, A);
 spawn_with_apply(Fun) when is_function(Fun) -> 

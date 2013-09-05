@@ -328,7 +328,7 @@ rescan(Scn, Cord, [H|T]) when H#token.dirty == true ->
 %% The first token is dirty. Scan until we get back to a sane state
 rescan_dirty(Scn, W0, Pos, [Tok|Toks]) ->
     Start = Tok#token.start,
-    io:format("(Pos = ~p) Rescanning ~p~n", [Pos, Tok]),
+    error_logger:info_msg("(Pos = ~p) Rescanning ~p~n", [Pos, Tok]),
     case token(Scn, W0) of
 	{done, eof} ->
 	    [];
@@ -347,7 +347,7 @@ rescan_dirty_cont(Scn, W, Pos, Rest) ->
     if
 	%% This token no longer exists!
 	Next#token.finish =< Pos ->
-	    io:format("(Pos = ~p) Discaring token: ~p~n", [Pos, Next]),
+	    error_logger:info_msg("(Pos = ~p) Discaring token: ~p~n", [Pos, Next]),
 	    rescan_dirty_cont(Scn, W, Pos, tl(Rest));
 	%% We need to carry on if the token is known to be dirty, or
 	%% if we aren't at the same place that it was scanned from

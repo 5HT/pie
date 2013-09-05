@@ -40,7 +40,7 @@ bindings() ->
 
 %% test buffer annotation
 ann_trace(S0, Cord, Text, Start, End) ->
-    io:format("trace: ~p at (~p,~p)~n", [Text, Start, End]),
+    error_logger:info_msg("trace: ~p at (~p,~p)~n", [Text, Start, End]),
     {ok, S0}.
 
 scheme_mode(State) ->
@@ -124,7 +124,7 @@ beginning_of_fun_pos(B) ->
 
 %% Calculate the indent level for the line *following* the tokens `Toks'.
 calc_indent(Toks) ->
-    io:format("calc_indent: ~p~n", [Toks]),
+    error_logger:info_msg("calc_indent: ~p~n", [Toks]),
     calc_indent(Toks, 0, []).
 
 %% ( s      : (lambda

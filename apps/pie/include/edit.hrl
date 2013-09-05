@@ -7,10 +7,12 @@
 	io:format("[~s:~p] " ++ F, [?MODULE, ?LINE | A])
        ).
 
+-define(ESC, 27).
+
 %% To use the GTK terminal, use the following definition.
 %% Requires that you have erlgtk and gterm in your path.
 %%-define(EDIT_TERMINAL, edit_terminal_gterm).
--define(EDIT_TERMINAL, edit_terminal).
+-define(TERM, edit_terminal).
 
 -record(state,
 	{curwin,		 % current window

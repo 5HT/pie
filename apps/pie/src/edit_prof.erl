@@ -2,7 +2,7 @@
 -compile(export_all).
 
 start(Filename) ->
-    Edit = spawn_link(fun() -> edit:start(Filename) end),
+    Edit = spawn_link(fun() -> pie:start(Filename) end),
     timer:start_link(),
     eprof:start(),
     profiling = eprof:profile([Edit, scratch]),

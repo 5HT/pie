@@ -264,7 +264,7 @@ man_page(State) ->
     Word = symbol_at_point(State),
     Command = "man " ++ Word,
     Text = os:cmd(Command),
-    R = edit_util:popup_message(State,Command, Text),
+    R = edit_util:popup_message(State,list_to_atom(Command), Text),
     start_of_buffer(next_window(R)).
 
 forward_word(S) ->
@@ -319,7 +319,7 @@ recenter(State) ->
         not_found -> 1;
         Pos -> Pos + 1 end,
     edit_buf:move_mark(Buf, Win#window.start_mark, NewDStart),
-    ?EDIT_TERMINAL:invalidate(),
+    ?TERM:invalidate(),
     State.
 
 scroll_up(State) ->
@@ -585,12 +585,12 @@ delete_window(State) ->
 
 -command({quit, [], "Exit the editor process"}).
 quit(State) ->
-    ?EDIT_TERMINAL:teardown(),
+    ?TERM:teardown(),
     halt().
 
 -command({stop, [], "Exit the editor process, without halting Erlang."}).
 stop(State) ->
-    ?EDIT_TERMINAL:teardown(),
+    ?TERM:teardown(),
     init:restart().  % FIXME , should do something nicer... (tobbe)
 
 -command({printf, [{string, "String:"}],

@@ -150,7 +150,7 @@ eval_async(Buf, Tokens, Bindings) ->
     ok.
 
 redraw() ->
-    edit:invoke_async(edit_lib, nop, [], self()).
+    pie:invoke_async(edit_lib, nop, [], self()).
 
 %% Go to the beginning of the line or directly after the prompt,
 %% whichever is closer.
