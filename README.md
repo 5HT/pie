@@ -58,16 +58,16 @@ File Operations
 Window Management
 -----------------
 
-    C-x o -- Next Window
-    C-x 0 -- Delete selected Window
-    C-x 1 -- Delete other Windows
-    C-x 2 -- Vertical Split 
+    C-x o   -- Next Window
+    C-x 0   -- Delete selected Window
+    C-x 1   -- Delete other Windows
+    C-x 2   -- Vertical Split 
     
 Pie Commands
 ------------
 
-    M-x --  will run internal Pie command in module:function format.
-            E.g. you can type "edit_lib:scroll_up"
+    M-x     -- will run internal Pie command in module:function format.
+               E.g. you can type "edit_lib:scroll_up"
 
 For developing Pie commands a parse_transform syntax was introduced.
 Here is example of edit_lib:unix_command
@@ -82,18 +82,18 @@ State is mandatory first argument of Pie state.
 Eval
 ----
 
-"M-:" command will evaluate Erlang Expression in the minibuffer,
-like "os:type()." or "lists:seq(1,100).". If output is not fit into
-one line another window will be created.
+    M-:     -- command will evaluate Erlang Expression in the minibuffer,
+               like "os:type()." or "lists:seq(1,100).". If output is
+               not fit into one line another window will be created.
 
 Interactive Mode
 ----------------
 
-    C-x i --  command will enter Erlang Interactive shell 
-              where you can evaluate Erlang expressions 
-              inside editor buffer by pressing ENTER on them.
-              The result would be displayed also in the 
-              editor buffer below.
+    C-x i   -- command will enter Erlang Interactive shell 
+               where you can evaluate Erlang expressions 
+               inside editor buffer by pressing ENTER on them.
+               The result would be displayed also in the 
+               editor buffer below.
 
                     os:type(). ENTER
                     => {unix,linux}
@@ -102,14 +102,14 @@ Interactive Mode
 Fundamental Mode
 ----------------
 
-    C-x f -- command will bring you back to Fundamental mode which
-             is defaul editing mode.
+    C-x f   -- command will bring you back to Fundamental mode which
+               is defaul editing mode.
 
 Erlang Mode
 -----------
 
-    C-x e -- command will dive you into Erlang mode which helps you edit Erlang code.
-    C-i   -- reformat selected code
+    C-x e   -- command will dive you into Erlang mode which helps you edit Erlang code.
+    C-i     -- reformat selected code
 
 Futher tasks
 ------------
@@ -120,9 +120,9 @@ Futher tasks
 Credits
 -------
 
-* Torbjorn Tornkvist
-* Luke Gorrie
-* Maxim Sokhatsky
+* Torbjorn Tornkvist -- original edit program
+* Luke Gorrie -- ermacs package
+* Maxim Sokhatsky -- pie renaissance
 
 Notes
 -----
