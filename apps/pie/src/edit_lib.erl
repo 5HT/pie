@@ -264,7 +264,7 @@ man_page(State) ->
     Word = symbol_at_point(State),
     Command = "man " ++ Word,
     Text = os:cmd(Command),
-    R = edit_util:popup_message(State, list_to_atom(Command), Text),
+    R = edit_util:popup_message(State,Command, Text),
     start_of_buffer(next_window(R)).
 
 forward_word(S) ->
