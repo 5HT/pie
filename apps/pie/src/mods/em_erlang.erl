@@ -87,7 +87,6 @@ max(X, Y)            -> Y.
 min(X, Y) when X < Y -> X;
 min(X, Y)            -> Y.
 
-
 beginning_of_function(State) ->
     B = buffer(State),
     Pos = beginning_of_function_pos(B),

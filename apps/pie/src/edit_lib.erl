@@ -250,6 +250,23 @@ end_of_line(S) ->
     move_to_char_forward(buffer(S), fun(C) -> C == $\n end),
     S.
 
+symbol_at_point(State) ->
+    Buf = buffer(State),
+    Pos = edit_buf:mark_pos(Buf, point),
+    Space = fun(C) -> lists:member(C,[$ ,$\t,$\r,$\n]) end,
+    End = find_char_forward(Buf, Space, Pos),
+    Start = find_char_backward(Buf, Space, Pos),
+    Region = edit_buf:get_region(Buf,Start+1,End),
+    error_logger:info_msg("Current Word: ~p / ~p",[Region,{Start,End,Pos}]),
+    Region.
+
+man_page(State) ->
+    Word = symbol_at_point(State),
+    Command = "man " ++ Word,
+    Text = os:cmd(Command),
+    R = edit_util:popup_message(State, list_to_atom(Command), Text),
+    start_of_buffer(next_window(R)).
+
 forward_word(S) ->
     move_to_char_forward(buffer(S), alphanumeric_P()),
     move_to_char_forward(buffer(S), not_P(alphanumeric_P())),

@@ -79,7 +79,7 @@ try_update_loop([], NRows, Scan, Col, Row, Point, PointXY, Acc) ->
 draw_line(L) ->
     Wth = ?EDIT_TERMINAL:width(),
     Str = trunc_line(L, Wth),
-    error_logger:info_msg("Line: ~s",[Str]),
+%    error_logger:info_msg("Line: ~s",[Str]),
     ?EDIT_TERMINAL:put_string(Str),
     ?EDIT_TERMINAL:erase_to_eol().
 
