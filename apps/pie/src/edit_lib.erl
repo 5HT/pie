@@ -162,13 +162,16 @@ backward_char(S) when record(S,state) ->
 
 forward_char(S) when record(S,state) ->
     Buf = buffer(S),
-    Pos = edit_buf:mark_pos(Buf, point) + 1,
+    Pos = edit_buf:mark_pos(Buf, point),
+    A = edit_buf:get_region_cord(Buf,Pos,Pos+2),
+    error_logger:info_msg("Cord: ~p",[A]),
     Max = edit_buf:point_max(Buf),
-    case Pos > Max of
+    NextPos = Pos +1,
+    case NextPos > Max of
 	true ->
 	    S;
 	false ->
-	    edit_buf:move_mark(Buf, point, Pos)
+	    edit_buf:move_mark(Buf, point, NextPos)
     end.
 
 %% ----------------------------------------
@@ -277,16 +280,17 @@ end_of_line_pos(Buf) ->
     end_of_line_pos(Buf, Pos).
 end_of_line_pos(Buf, Pos) ->
     P = case find_char_forward(Buf, fun(C) -> C == $\n end, Pos) of
-	    not_found ->
-		edit_buf:point_max(Buf);
-	    N when integer(N) ->
-		N
-	end.
+        not_found -> edit_buf:point_max(Buf);
+        N when integer(N) -> N end.
 
 move_to_char_forward(Buf, Pred) ->
     Pos = edit_buf:mark_pos(Buf, point),
     NewPos = find_char_forward(Buf, Pred, Pos, edit_buf:point_max(Buf)),
-    edit_buf:move_mark(Buf, point, NewPos).
+    Region = edit_buf:get_region(Buf,Pos,NewPos),
+    Length = length(ucs:from_utf8(Region)),
+    error_logger:info_msg("Uni Length: ~p",[Length]),
+    error_logger:info_msg("Raw Length: ~p",[length(Region)]),
+    edit_buf:move_mark(Buf, point, Pos + Length). % NewPos).
 
 %% Returns CharPos | not_found
 find_char_forward(Buf, Pred, Pos) ->

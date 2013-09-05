@@ -38,8 +38,10 @@ find_file1(State, Filename, Name, N) ->
 	    {ok, Buf} = edit_buf:new(BufferName),
 	    edit_buf:set_filename(Buf, filename:absname(Filename)),
 	    State1 = edit_util:set_buffer(State, BufferName),
+            error_logger:info_msg("file openinig: ~p",[now()]),
 	    case cord:new_from_file(Filename) of
 		{ok, Cord} ->
+                    error_logger:info_msg("file opened: ~p",[now()]),
 		    edit_buf:set_text(Buf, Cord),
 		    edit_buf:move_mark(Buf, point, 1),
 		    State1;

@@ -24,6 +24,7 @@ start() ->
     application:start(rebar),
     application:start(erlfsmon),
     application:start(active),
+    application:start(ucs),
     init().
 
 start(Args) -> 
