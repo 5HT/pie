@@ -24,7 +24,7 @@ start() ->
     application:start(rebar),
     application:start(erlfsmon),
     application:start(active),
-    application:start(ucs),
+%    application:start(ucs),
     application:start(ux),
     init().
 
