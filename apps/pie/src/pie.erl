@@ -25,6 +25,7 @@ start() ->
     application:start(erlfsmon),
     application:start(active),
     application:start(ucs),
+    application:start(ux),
     init().
 
 start(Args) -> 

@@ -287,7 +287,7 @@ move_to_char_forward(Buf, Pred) ->
     Pos = edit_buf:mark_pos(Buf, point),
     NewPos = find_char_forward(Buf, Pred, Pos, edit_buf:point_max(Buf)),
     Region = edit_buf:get_region(Buf,Pos,NewPos),
-    Length = length(ucs:from_utf8(Region)),
+    Length = ux_string:length(xmerl_ucs:from_utf8(Region)),
     error_logger:info_msg("Uni Length: ~p",[Length]),
     error_logger:info_msg("Raw Length: ~p",[length(Region)]),
     edit_buf:move_mark(Buf, point, Pos + Length). % NewPos).
