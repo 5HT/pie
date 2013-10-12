@@ -10,6 +10,7 @@ Pie codebase is very tiny, clean and extendable.
 Run
 ---
 
+    $ sudo apt-get install libslang2-pic
     $ rebar get-deps
     $ rebar compile
     $ ./pie README.md
