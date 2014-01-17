@@ -7,6 +7,8 @@ Pie codebase is very tiny, clean and extendable.
 
 ![Pie](http://synrc.com/lj/pie2.png)
 
+![Unicode](http://i.juick.com/photos-512/2505478.jpg)
+
 Run
 ---
 
