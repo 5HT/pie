@@ -9,13 +9,30 @@ Pie codebase is very tiny, clean and extendable.
 
 ![Unicode](http://i.juick.com/photos-512/2505478.jpg)
 
+Mac Install
+-----------
+
+    $ curl ftp://ftp.fu-berlin.de/pub/unix/misc/slang/v2.2/slang-2.2.4.tar.gz | tar xzf -
+    $ ./configure --prefix=/usr
+    $ make static
+    $ sudo make install-static
+
+Ubuntu Install
+--------------
+
+    $ sudo apt-get install libslang2-pic
+
+Install Pie
+-----------
+
+    $ rebar get-deps
+    $ rebar compile
+    $ ./install
+
 Run
 ---
 
-    $ sudo apt-get install libslang2-pic
-    $ rebar get-deps
-    $ rebar compile
-    $ ./pie README.md
+    $ pie README.md
 
 CUA mode
 --------
