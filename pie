@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PIE=$(dirname $(readlink $0))
+PIE=$(dirname $0)
 ERL_LIBS=$PIE/deps:$PIE/apps erl -pa +A 100 -config $PIE/sys.config -s pie start  $1 $2 $3
 
 stty sane
